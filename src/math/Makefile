@@ -18,4 +18,6 @@ init:
 
 clean:
 	rm $(BIN)/factor
-	rm $(LIB)/*
+	rm $(LIB)/factor.o
+	rm $(LIB)/strnum.o
+	
