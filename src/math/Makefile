@@ -20,4 +20,3 @@ clean:
 	rm $(BIN)/factor
 	rm $(LIB)/factor.o
 	rm $(LIB)/strnum.o
-	
