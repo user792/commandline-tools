@@ -1,11 +1,16 @@
-BIN=../../../bin
-OBJ=../../../obj/factor
+BIN=~/bin
+OBJ=~/obj/factor
+OUT_DIR=~/output
+OUT_FILE=~/output/factor.txt
 TESTFILES=../../../testfiles
 
 build: $(BIN)/factor
 	
 run: $(BIN)/factor
-	@exec $(BIN)/factor
+	@mkdir -p $(OUT_DIR) 
+	@echo "\n**********$$(date)**********" >> $(OUT_FILE)
+	@exec $(BIN)/factor|tee -a $(OUT_FILE)
+	@echo "************************************************"
 
 test: $(BIN)/factor
 	@echo "\n******* testing input checking functions *******"
@@ -32,3 +37,6 @@ init:
 clean:
 	rm -f $(BIN)/factor
 	rm -f $(OBJ)/*
+
+clear_output:
+	rm -f $(OUT_FILE)
