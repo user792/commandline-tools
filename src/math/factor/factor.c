@@ -34,7 +34,7 @@ void factor(FILE *ifp, FILE *ofp)
 
 		if (larger_than_llu(str_num))
 		{
-			printf("%20.20s   is larger than the upperbound %llu(2^%lu).\n", str_num, (uint64_t) -1, sizeof(uint64_t) * 8);
+			printf("%20.20s   is larger than the upperbound %llu(2^%lu-1).\n", str_num, (uint64_t) -1, sizeof(uint64_t) * 8);
 			continue;
 		}
 
