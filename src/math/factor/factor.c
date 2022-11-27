@@ -17,6 +17,7 @@ void factor(FILE *ifp, FILE *ofp)
 		if (str_num[strlen(str_num) - 1] != '\n')
 		{
 			printf("%17.10s...   is too long. Enter at most %d digits.\n", str_num, MAX_INPUT_LENGTH);
+			fflush(ofp);
 			int c;
 			while ((c = getc(ifp)) != EOF) {	
 				if (c == '\n') break;
@@ -29,12 +30,14 @@ void factor(FILE *ifp, FILE *ofp)
 		if (!is_number(str_num))
 		{
 			printf("%20.20s   contains invalid character(s). Please enter a natural number with no sign or space!\n", str_num);
+			fflush(ofp);
 			continue;
 		}
 
 		if (larger_than_llu(str_num))
 		{
 			printf("%20.20s   is larger than the upperbound %llu(2^%lu-1).\n", str_num, (uint64_t) -1, sizeof(uint64_t) * 8);
+			fflush(ofp);
 			continue;
 		}
 
@@ -46,7 +49,10 @@ void factor(FILE *ifp, FILE *ofp)
 		fflush(ofp);
 
 		if (num == 1 || num == 0)
+		{
 			fprintf(ofp, "%llu\n", num);/* 1 and 0 are special cases */
+			fflush(ofp);
+		}
 		else
 		{
 			if (num % 2 == 0)
@@ -55,16 +61,27 @@ void factor(FILE *ifp, FILE *ofp)
 				for (; num % 2 == 0; repeat_count++) num >>= 1;
 
 				if (repeat_count == 1)
+				{
 					fprintf(ofp, "2");
-				else
+					fflush(ofp);
+				}
+				else 
+				{
 					fprintf(ofp, "2^%d", repeat_count);
+					fflush(ofp);
+				}
+
 
 				if (num == 1)
+				{
 					fprintf(ofp, "\n");
+					fflush(ofp);
+				}
 				else
+				{
 					fprintf(ofp, " × ");
-
-				fflush(ofp);
+					fflush(ofp);
+				}
 			}
 
 			for (uint64_t i = 3; i <= (uint64_t) sqrt((double) num); i += 2)
@@ -75,20 +92,34 @@ void factor(FILE *ifp, FILE *ofp)
 				if (repeat_count != 0)
 				{
 					if (repeat_count == 1)
+					{
 						fprintf(ofp, "%llu", i);
+						fflush(ofp);
+					}
 					else
+					{
 						fprintf(ofp, "%llu^%d", i, repeat_count);
+						fflush(ofp);
+					}
 
 					if (num == 1)
+					{
 						fprintf(ofp, "\n");
+						fflush(ofp);
+					}
 					else
+					{
 						fprintf(ofp, " × ");
-					fflush(ofp);
+						fflush(ofp);
+					}	
 				}
 			}
 
 			if (num != 1)
+			{
 				fprintf(ofp, "%llu\n", num);
+				fflush(ofp);
+			}
 		}
 	}
 }
